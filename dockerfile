@@ -6,7 +6,7 @@ ARG domain_name
 
 #add file
 ADD * ./
-
+RUN apk add --update curl
 #update pip
 RUN pip install --upgrade pip
 RUN pip install -r ./requirements
