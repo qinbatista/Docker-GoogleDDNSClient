@@ -52,8 +52,7 @@ class GoogleDDNSClient:
                 # process = subprocess.Popen(command, stdout=_get_static_ip_stdout,stderr=_get_static_ip_stdout, universal_newlines=True, shell=True)
                 # process.wait()
                 url = f"https://{self.__username}:{self.__password}@domains.google.com/nic/update?hostname={self._my_domain}&myip={self.__ip}"
-                result = requests.request(url)
-                result = requests.request(url)
+                result = requests.get(url).text.strip()
                 print("result="+result)
                 self.__log("[posted ip]"+str(self.__ip)+", wait for 10 seconds")
                 _get_static_ip_stdout.close()
