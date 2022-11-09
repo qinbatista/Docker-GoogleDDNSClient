@@ -1,4 +1,4 @@
-#GoogleDDNSClient
+# GoogleDDNSClient
 Upload your IP to Google Dynamic DNS recorder.
 ## Why use it
 If the IP of your server is changing or you start a new server but don't  know what's the IP, you can use the docker to upload your IP to Google Domain
