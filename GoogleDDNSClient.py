@@ -48,6 +48,7 @@ class GoogleDDNSClient:
                 command = "proxychains curl -i -H 'Authorization:Basic "+self.__base64()+"' -H 'User-Agent: google-ddns-updater email@yourdomain.com' https://" + \
                     self.__username+":"+self.__password+"@domains.google.com/nic/update?hostname=" + \
                     self._my_domain+" -d 'myip="+self.__ip+"' > /dev/null"
+                print(command)
                 process = subprocess.Popen(command, stdout=_get_static_ip_stdout,stderr=_get_static_ip_stdout, universal_newlines=True, shell=True)
                 process.wait()
                 self.__log("[posted ip]"+str(self.__ip)+", wait for 10 seconds")
