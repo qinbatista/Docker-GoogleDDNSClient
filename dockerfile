@@ -8,7 +8,6 @@ ARG domain_name
 ADD * ./
 
 #update pip
-RUN ls
 RUN pip install --upgrade pip
 RUN pip install -r ./requirements
 
