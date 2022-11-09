@@ -7,9 +7,6 @@ ARG domain_name
 #add file
 ADD * ./
 
-#install packages
-RUN apt-get update
-
 #update pip
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
