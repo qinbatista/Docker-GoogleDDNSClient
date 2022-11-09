@@ -48,7 +48,6 @@ class GoogleDDNSClient:
                 command = "curl -i -H 'Authorization:Basic "+self.__base64()+"' -H 'User-Agent: google-ddns-updater email@yourdomain.com' https://" + \
                     self.__username+":"+self.__password+"@domains.google.com/nic/update?hostname=" + \
                     self._my_domain+" -d 'myip="+self.__ip+"' > /dev/null"
-                command = command.replace("\n", "")
                 process = subprocess.Popen(command, stdout=_get_static_ip_stdout,stderr=_get_static_ip_stdout, universal_newlines=True, shell=True)
                 process.wait()
                 with open(self._fn_stdout, "r") as f:
