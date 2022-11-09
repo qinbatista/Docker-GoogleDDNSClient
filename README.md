@@ -28,4 +28,3 @@ docker run -itd qinbatista/GoogleDDNSClient
 ```
 --platform linux/amd64
 ```
-# GoogleDDNSClient-Docker
