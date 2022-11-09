@@ -21,7 +21,7 @@ docker build -t qinbatista/googleddnsclient . \
 #### run docker
 
 ```docker run
-docker run -itd qinbatista/GoogleDDNSClient
+docker run -itd qinbatista/googleddnsclient
 ```
 
 #### build on Apple Silicon

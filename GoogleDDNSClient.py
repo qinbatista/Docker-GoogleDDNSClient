@@ -18,6 +18,9 @@ class GoogleDDNSClient:
             self.__password = f.readline()
         with open("/domain_name.txt", "r") as f:
             self._my_domain = f.readline()
+        print("self.__username:"+self.__username)
+        print("self.__password:"+self.__password)
+        print("self._my_domain:"+self._my_domain)
         # https://domains.google.com/checkip banned by Chinese GFW
         self._get_ip_website = "https://checkip.amazonaws.com"
         self.__ip = ""
@@ -39,6 +42,7 @@ class GoogleDDNSClient:
         try:
             self.__ip = self.__get_host_ip()
             self.__log("[my ip] "+self.__ip)
+            print("[my ip] "+self.__ip)
             if self.__ip != "":
                 _get_static_ip_stdout = open(self._fn_stdout, 'w+')
                 command = "proxychains curl -i -H 'Authorization:Basic "+self.__base64()+"' -H 'User-Agent: google-ddns-updater email@yourdomain.com' https://" + \
@@ -59,6 +63,7 @@ class GoogleDDNSClient:
             self.__ip = requests.get(self._get_ip_website).text.strip()
             return self.__ip
         except Exception as e:
+            print("[__get_host_ip ] "+str(e))
             self.__log("[__get_host_ip ] "+str(e))
             return ""
 
