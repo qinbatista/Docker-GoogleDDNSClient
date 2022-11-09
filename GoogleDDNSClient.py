@@ -5,9 +5,6 @@ import base64
 import threading
 import subprocess
 
-
-
-
 class GoogleDDNSClient:
     def __init__(self):
         self._fn_stdout = "/root/ip_out"
