@@ -67,6 +67,7 @@ class GoogleDDNSClient:
             self.__log("[__get_host_ip ] "+str(e))
             return ""
 
+
     def __log(self, result):
         # if os.path.isfile(self.__file_path)==False:
         # with open(self.__file_path,"a+") as f:pass
