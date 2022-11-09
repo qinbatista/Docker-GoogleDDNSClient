@@ -45,7 +45,7 @@ class GoogleDDNSClient:
             print("[my ip] "+self.__ip)
             if self.__ip != "":
                 _get_static_ip_stdout = open(self._fn_stdout, 'w+')
-                command = "proxychains curl -i -H 'Authorization:Basic "+self.__base64()+"' -H 'User-Agent: google-ddns-updater email@yourdomain.com' https://" + \
+                command = "curl -i -H 'Authorization:Basic "+self.__base64()+"' -H 'User-Agent: google-ddns-updater email@yourdomain.com' https://" + \
                     self.__username+":"+self.__password+"@domains.google.com/nic/update?hostname=" + \
                     self._my_domain+" -d 'myip="+self.__ip+"' > /dev/null"
                 print(command)
@@ -56,6 +56,7 @@ class GoogleDDNSClient:
                 time.sleep(10)
                 os.remove(self._fn_stdout)
         except Exception as e:
+            print("error when updating ip"+str(e))
             self.__log("error when updating ip"+str(e))
 
     def __get_host_ip(self):
