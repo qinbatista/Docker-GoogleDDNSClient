@@ -7,20 +7,14 @@ import subprocess
 
 class GoogleDDNSClient:
     def __init__(self):
-        self._fn_stdout = "/Users/batista/Desktop/ip_out"
-        self.__file_path = "/Users/batista/Desktop/logs.txt"
-        self.__username = "IyLuDtYmPsnHMLtI"
-        self.__password = "6JrJzPTZDKwwi8j4"
-        self._my_domain = "ustest.qinyupeng.com"
-
-        # self._fn_stdout = "/root/ip_out"
-        # self.__file_path = "/root/logs.txt"
-        # with open("/Username.txt", "r") as f:
-        #     self.__username = f.readline()
-        # with open("/Password.txt", "r") as f:
-        #     self.__password = f.readline()
-        # with open("/domain_name.txt", "r") as f:
-        #     self._my_domain = f.readline()
+        self._fn_stdout = "/root/ip_out"
+        self.__file_path = "/root/logs.txt"
+        with open("/Username.txt", "r") as f:
+            self.__username = f.readline()
+        with open("/Password.txt", "r") as f:
+            self.__password = f.readline()
+        with open("/domain_name.txt", "r") as f:
+            self._my_domain = f.readline()
         # https://domains.google.com/checkip banned by Chinese GFW
         self._get_ip_website = "https://checkip.amazonaws.com"
         self.__ip = ""
