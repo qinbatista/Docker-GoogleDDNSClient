@@ -44,12 +44,10 @@ class GoogleDDNSClient:
                 command = command.replace("\n", "")
                 process = subprocess.Popen(command, stdout=_get_static_ip_stdout,stderr=_get_static_ip_stdout, universal_newlines=True, shell=True)
                 process.wait()
-                print(command)
                 self.__log("[posted ip]"+str(self.__ip)+", wait for 10 seconds")
                 _get_static_ip_stdout.close()
                 os.remove(self._fn_stdout)
         except Exception as e:
-            print("error when updating ip"+str(e))
             self.__log("error when updating ip"+str(e))
 
     def __get_host_ip(self):
@@ -82,6 +80,5 @@ class GoogleDDNSClient:
 
 
 if __name__ == '__main__':
-    # os.system("ssr start")
     ss = GoogleDDNSClient()
     ss._start()
