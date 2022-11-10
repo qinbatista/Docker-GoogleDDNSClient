@@ -16,7 +16,8 @@ class GoogleDDNSClient:
             self.__password = f.readline().replace("\n", "")
         with open("/domain_name.txt", "r") as f:
             self._my_domain = f.readline().replace("\n", "")
-
+        self._get_ip_website = "https://checkip.amazonaws.com"
+        self.__ip = ""
     def _start(self):
         self.__log("_start")
         thread_refresh = threading.Thread(target=self._start, name="t1", args=())
@@ -34,6 +35,7 @@ class GoogleDDNSClient:
         try:
             self.__ip = self.__get_host_ip()
             self.__log("[my ip] "+self.__ip)
+            print("[my ip] "+self.__ip)
             if self.__ip != "":
                 _get_static_ip_stdout = open(self._fn_stdout, 'w+')
                 command = "curl -i -H 'Authorization:Basic "+self.__base64() + "' -H 'User-Agent: google-ddns-updater email@yourdomain.com' https://" + \
