@@ -16,9 +16,6 @@ class GoogleDDNSClient:
             self.__password = f.readline().replace("\n", "")
         with open("/domain_name.txt", "r") as f:
             self._my_domain = f.readline().replace("\n", "")
-        # https://domains.google.com/checkip banned by Chinese GFW
-        self._get_ip_website = "https://checkip.amazonaws.com"
-        self.__ip = ""
 
     def _start(self):
         self.__log("_start")
