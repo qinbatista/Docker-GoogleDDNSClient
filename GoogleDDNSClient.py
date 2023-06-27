@@ -55,7 +55,7 @@ class GoogleDDNSClient:
             self.__ip = requests.get(self._get_ip_website).text.strip()
             return self.__ip
         except Exception as e:
-            self.__log("[__get_host_ip ] "+str(e))
+            self.__log("[get_host_ip ] "+str(e))
             return ""
 
     def __log(self, result):
