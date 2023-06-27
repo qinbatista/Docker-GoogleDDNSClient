@@ -30,7 +30,7 @@ class GoogleDDNSClient:
                 self.__post_ip_address()
                 time.sleep(10)
             except Exception as e:
-                self.__log("_start"+str(e))
+                self.__log("start"+str(e))
 
     def __post_ip_address(self):
         try:
