@@ -43,7 +43,7 @@ class GoogleDDNSClient:
                     self._my_domain+" -d 'myip="+self.__ip+"'"
                 process = subprocess.Popen(command, stdout=_get_static_ip_stdout, stderr=_get_static_ip_stdout, universal_newlines=True, shell=True)
                 process.wait()
-                self.__log("[posted ip]"+str(self.__ip)+", wait for 10 seconds")
+                self.__log("[posted ip]"+str(self.__ip)+", wait for 10 seconds->"+command)
                 _get_static_ip_stdout.close()
                 os.remove(self._fn_stdout)
         except Exception as e:
