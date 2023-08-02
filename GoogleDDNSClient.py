@@ -8,9 +8,12 @@ import subprocess
 
 class GoogleDDNSClient:
     def __init__(self):
-        self.__google_username = ""
-        self.__google_password = ""
-        self.__domain_name = ""
+        self.__google_username_v6 = ""
+        self.__google_password_v6 = ""
+        self.__domain_name_v6 = ""
+        self.__google_username_v4 = ""
+        self.__google_password_v4 = ""
+        self.__domain_name_v4 = ""
         self._get_ip_website = "https://checkip.amazonaws.com"
         self.__file_path = "/root/logs.txt"
 
@@ -31,7 +34,8 @@ class GoogleDDNSClient:
         try:
             this_ipv6 = self.__get_current_ipv6()
             this_ipv4 = self.__get_current_ipv4()
-            requests.post(f"https://{self.__google_username}:{self.__google_password}@domains.google.com/nic/update?hostname={self.__domain_name}&myip={this_ipv6}")
+            requests.post(f"https://{self.__google_username_v6}:{self.__google_password_v6}@domains.google.com/nic/update?hostname={self.__domain_name_v6}&myip={this_ipv6}")
+            requests.post(f"https://{self.__google_username_v4}:{self.__google_password_v4}@domains.google.com/nic/update?hostname={self.__domain_name_v4}&myip={this_ipv4}")
         except Exception as e:
             self.__log(f"_post_ip_address:{str(e)}")
 
