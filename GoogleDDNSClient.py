@@ -8,16 +8,11 @@ import subprocess
 
 class GoogleDDNSClient:
     def __init__(self):
-        self._fn_stdout = "/root/ip_out"
-        self.__file_path = "/root/logs.txt"
-        with open("/Username.txt", "r") as f:
-            self.__username = f.readline().replace("\n", "")
-        with open("/Password.txt", "r") as f:
-            self.__password = f.readline().replace("\n", "")
-        with open("/domain_name.txt", "r") as f:
-            self._my_domain = f.readline().replace("\n", "")
+        self.__google_username = ""
+        self.__google_password = ""
+        self.__domain_name = ""
         self._get_ip_website = "https://checkip.amazonaws.com"
-        self.__ip = ""
+        self.__file_path = "/root/logs.txt"
 
     def _start(self):
         self.__log("_start")
@@ -27,32 +22,28 @@ class GoogleDDNSClient:
     def _start(self):
         while True:
             try:
-                self.__post_ip_address()
-                time.sleep(10)
+                self._post_ip_to_google_DNS()
+                time.sleep(30)
             except Exception as e:
                 self.__log("start"+str(e))
-    def __post_ip_address(self):
-        try:
-            self.__ip = self.__get_host_ip()
-            self.__log("[my ip] "+self.__ip)
-            if self.__ip != "":
-                _get_static_ip_stdout = open(self._fn_stdout, 'w+')
-                command = "curl -i -H 'Authorization:Basic "+self.__base64() + "' -H 'User-Agent: google-ddns-updater qin.batista@outlook.com' https://" + \
-                    self.__username+":"+self.__password+"@domains.google.com/nic/update?hostname=" + \
-                    self._my_domain+" -d 'myip="+self.__ip+"'"
-                process = subprocess.Popen(command, stdout=_get_static_ip_stdout, stderr=_get_static_ip_stdout, universal_newlines=True, shell=True)
-                process.wait()
-                self.__log("[posted ip]"+str(self.__ip)+", wait for 10 seconds->"+command)
-                _get_static_ip_stdout.close()
-                os.remove(self._fn_stdout)
-        except Exception as e:
-            self.__log("error when updating ip"+str(e))
 
-    def __get_host_ip(self):
-        self.__ip = ""
+    def _post_ip_to_google_DNS(self):
         try:
-            self.__ip = requests.get(self._get_ip_website).text.strip()
-            return self.__ip
+            this_ipv6 = self.__get_current_ipv6()
+            this_ipv4 = self.__get_current_ipv4()
+            requests.post(f"https://{self.__google_username}:{self.__google_password}@domains.google.com/nic/update?hostname={self.__domain_name}&myip={this_ipv6}")
+        except Exception as e:
+            self.__log(f"_post_ip_address:{str(e)}")
+
+    def __get_current_ipv6(self):
+        try:
+            return requests.get("https://api6.ipify.org", timeout=5).text
+        except requests.exceptions.ConnectionError as ex:
+            return None
+
+    def __get_current_ipv4(self):
+        try:
+            return requests.get(self._get_ip_website).text.strip()
         except Exception as e:
             self.__log("[get_host_ip ] "+str(e))
             return ""
@@ -64,12 +55,6 @@ class GoogleDDNSClient:
             with open(self.__file_path, "r") as f:
                 content = f.readlines()
                 os.remove(self.__file_path)
-
-    def __base64(self):
-        theString = self.__username+":"+self.__password
-        encoded_string = base64.b64encode(theString.encode('ascii'))
-        return encoded_string.decode('ascii')
-
 
 if __name__ == '__main__':
     ss = GoogleDDNSClient()
