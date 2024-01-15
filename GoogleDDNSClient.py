@@ -8,21 +8,30 @@ import subprocess
 
 class GoogleDDNSClient:
     def __init__(self):
-        self.__google_username_v6 = ""
-        self.__google_password_v6 = ""
-        self.__domain_name_v6 = ""
-        self.__google_username_v4 = ""
-        self.__google_password_v4 = ""
-        self.__domain_name_v4 = ""
-        self._get_ip_website = "https://checkip.amazonaws.com"
+        self.__google_username_v6 = self._get_file_content("GOOGLE_USERNAME_V6").strip()
+        self.__google_password_v6 = self._get_file_content("GOOGLE_PASSWORD_V6").strip()
+        self.__domain_name_v6 = self._get_file_content("DOMAIN_NAME_V6").strip()
+        self.__google_username_v4 = self._get_file_content("GOOGLE_USERNAME_V4").strip()
+        self.__google_password_v4 = self._get_file_content("GOOGLE_PASSWORD_V4").strip()
+        self.__domain_name_v4 = self._get_file_content("DOMAIN_NAME_V4").strip()
+        self._get_ipv4_website = "https://checkip.amazonaws.com"
+        self._get_ipv6_website = "https://api6.ipify.org"
         self.__file_path = "/root/logs.txt"
+
+    def _get_file_content(self, file_path):
+        content = ""
+        with open(file_path, "r") as f:
+            content = f.read()
+        os.remove(file_path)
+        print(f"{file_path}:{content}")
+        return content
 
     def _start(self):
         self.__log("_start")
-        thread_refresh = threading.Thread(target=self._start, name="t1", args=())
+        thread_refresh = threading.Thread(target=self._start_thread, name="t1", args=())
         thread_refresh.start()
 
-    def _start(self):
+    def _start_thread(self):
         while True:
             try:
                 self._post_ip_to_google_DNS()
@@ -41,13 +50,13 @@ class GoogleDDNSClient:
 
     def __get_current_ipv6(self):
         try:
-            return requests.get("https://api6.ipify.org", timeout=5).text
+            return requests.get(self._get_ipv6_website, timeout=5).text
         except requests.exceptions.ConnectionError as ex:
             return None
 
     def __get_current_ipv4(self):
         try:
-            return requests.get(self._get_ip_website).text.strip()
+            return requests.get(self._get_ipv4_website).text.strip()
         except Exception as e:
             self.__log("[get_host_ip ] "+str(e))
             return ""
