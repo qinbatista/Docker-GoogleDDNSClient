@@ -43,6 +43,8 @@ class GoogleDDNSClient:
         try:
             this_ipv6 = self.__get_current_ipv6()
             this_ipv4 = self.__get_current_ipv4()
+            print(f"this_ipv6:{this_ipv6}")
+            print(f"this_ipv4:{this_ipv4}")
             requests.post(f"https://{self.__google_username_v6}:{self.__google_password_v6}@domains.google.com/nic/update?hostname={self.__domain_name_v6}&myip={this_ipv6}")
             requests.post(f"https://{self.__google_username_v4}:{self.__google_password_v4}@domains.google.com/nic/update?hostname={self.__domain_name_v4}&myip={this_ipv4}")
         except Exception as e:
