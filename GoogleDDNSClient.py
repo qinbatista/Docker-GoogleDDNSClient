@@ -23,7 +23,7 @@ class GoogleDDNSClient:
         with open(file_path, "r") as f:
             content = f.read()
         os.remove(file_path)
-        print(f"{file_path}:{content}")
+        self.__log(f"{file_path}:{content}")
         return content
 
     def _start(self):
