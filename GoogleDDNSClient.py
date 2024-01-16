@@ -16,7 +16,7 @@ class GoogleDDNSClient:
         self.__domain_name_v4 = self._get_file_content("DOMAIN_NAME_V4").strip()
         self._get_ipv4_website = "https://checkip.amazonaws.com"
         self._get_ipv6_website = "https://api6.ipify.org"
-        self.__file_path = "/google_ddns_client_logs"
+        self.__file_path = "/google_ddns_client_logs.txt"
 
     def _get_file_content(self, file_path):
         content = ""
