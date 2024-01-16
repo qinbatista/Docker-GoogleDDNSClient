@@ -16,7 +16,7 @@ class GoogleDDNSClient:
         self.__domain_name_v4 = self._get_file_content("DOMAIN_NAME_V4").strip()
         self._get_ipv4_website = "https://checkip.amazonaws.com"
         self._get_ipv6_website = "https://api6.ipify.org"
-        self.__file_path = "/root/logs.txt"
+        self.__file_path = "/google_ddns_client_logs"
 
     def _get_file_content(self, file_path):
         content = ""
@@ -43,8 +43,8 @@ class GoogleDDNSClient:
         try:
             this_ipv6 = self.__get_current_ipv6()
             this_ipv4 = self.__get_current_ipv4()
-            print(f"this_ipv6:{this_ipv6}")
-            print(f"this_ipv4:{this_ipv4}")
+            self.__log(f"this_ipv6:{this_ipv6}")
+            self.__log(f"this_ipv4:{this_ipv4}")
             requests.post(f"https://{self.__google_username_v6}:{self.__google_password_v6}@domains.google.com/nic/update?hostname={self.__domain_name_v6}&myip={this_ipv6}")
             requests.post(f"https://{self.__google_username_v4}:{self.__google_password_v4}@domains.google.com/nic/update?hostname={self.__domain_name_v4}&myip={this_ipv4}")
         except Exception as e:
