@@ -11,13 +11,6 @@ If the IP of your server is changing or you start a new server but don't  know w
 * **Password** : Google Dynamic DNS-> credential of ***Password***
 * **Domain_name**: your domain name of the Dynamic DNS
 
-``` docker
-docker build -t qinbatista/googleddnsclient . \
---build-arg Username=yours \
---build-arg Password=yours \
---build-arg domain_name=a.example.com
-```
-
 #### run docker
 
 ```docker run
