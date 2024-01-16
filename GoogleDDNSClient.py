@@ -8,6 +8,7 @@ import subprocess
 
 class GoogleDDNSClient:
     def __init__(self):
+        self.__file_path = "/google_ddns_client_logs.txt"
         self.__google_username_v6 = self._get_file_content("GOOGLE_USERNAME_V6").strip()
         self.__google_password_v6 = self._get_file_content("GOOGLE_PASSWORD_V6").strip()
         self.__domain_name_v6 = self._get_file_content("DOMAIN_NAME_V6").strip()
@@ -16,7 +17,6 @@ class GoogleDDNSClient:
         self.__domain_name_v4 = self._get_file_content("DOMAIN_NAME_V4").strip()
         self._get_ipv4_website = "https://checkip.amazonaws.com"
         self._get_ipv6_website = "https://api6.ipify.org"
-        self.__file_path = "/google_ddns_client_logs.txt"
 
     def _get_file_content(self, file_path):
         content = ""

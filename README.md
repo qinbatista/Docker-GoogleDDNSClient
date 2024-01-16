@@ -14,7 +14,7 @@ If the IP of your server is changing or you start a new server but don't  know w
 #### run docker
 
 ```docker run
-docker run -itd qinbatista/googleddnsclient
+docker pull qinbatista/googleddnsclient && docker run -itd qinbatista/googleddnsclient
 ```
 
 #### build on Apple Silicon
