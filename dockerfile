@@ -23,7 +23,7 @@ ADD * ./
 RUN apk add --update curl
 #update pip
 RUN pip install --upgrade pip
-RUN pip install -r ./requirements
+RUN pip install -r /requirements
 
 WORKDIR /
 CMD ["python","/GoogleDDNSClient.py"]
