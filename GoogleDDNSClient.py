@@ -32,10 +32,10 @@ class GoogleDDNSClient:
     def _start_thread(self):
         while True:
             try:
-                time.sleep(30)
                 self.__log(f"sending IP")
                 self._post_ip_to_google_DNS()
                 self.__log(f"sended IP")
+                time.sleep(30)
             except Exception as e:
                 self.__log("[Error]_start_thread"+str(e))
 
