@@ -16,11 +16,11 @@ RUN echo ${GOOGLE_USERNAME_V4} > GOOGLE_USERNAME_V4
 RUN echo ${GOOGLE_PASSWORD_V4} > GOOGLE_PASSWORD_V4
 RUN echo ${DOMAIN_NAME_V4} > DOMAIN_NAME_V4
 
+RUN apk add --update curl
 #[End] GoogleDDNS-----------------------------------------------------
 
 #add file
 ADD * ./
-RUN apk add --update curl
 #update pip
 RUN pip install --upgrade pip
 RUN pip install -r /requirements.txt
