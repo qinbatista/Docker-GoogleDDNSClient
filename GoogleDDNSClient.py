@@ -44,8 +44,8 @@ class GoogleDDNSClient:
         try:
             this_ipv6 = self.__get_current_ipv6()
             this_ipv4 = self.__get_current_ipv4()
-            self.__log(f"this_ipv6:{this_ipv6}")
-            self.__log(f"this_ipv4:{this_ipv4}")
+            self.__log(f"this_ipv6:https://{self.__google_username_v6}:{self.__google_password_v6}@domains.google.com/nic/update?hostname={self.__domain_name_v6}&myip={this_ipv6}")
+            self.__log(f"this_ipv4:https://{self.__google_username_v4}:{self.__google_password_v4}@domains.google.com/nic/update?hostname={self.__domain_name_v4}&myip={this_ipv4}")
             if(this_ipv4!=""):resultV4 = requests.post(f"https://{self.__google_username_v6}:{self.__google_password_v6}@domains.google.com/nic/update?hostname={self.__domain_name_v6}&myip={this_ipv6}",timeout=5)
             self.__log(f"resultV4:{resultV4}")
             if(this_ipv6!=""):resultV6 = requests.post(f"https://{self.__google_username_v4}:{self.__google_password_v4}@domains.google.com/nic/update?hostname={self.__domain_name_v4}&myip={this_ipv4}",timeout=5)
