@@ -1,7 +1,6 @@
 import os
 import time
 import requests
-import base64
 import threading
 import subprocess
 
@@ -42,20 +41,34 @@ class GoogleDDNSClient:
 
     def _post_ip_to_google_DNS(self):
         try:
-            this_ipv6 = self.__get_current_ipv6()
+            # Assuming __get_current_ipv4() and __get_current_ipv6() are methods that return the current IPs
             this_ipv4 = self.__get_current_ipv4()
-            ipv6_post_url = f"https://{self.__google_username_v6}:{self.__google_password_v6}@domains.google.com/nic/update?hostname={self.__domain_name_v6}&myip={this_ipv6}"
-            ipv6_post_url.replace("\n", "")
-            ipv4_post_url = f"https://{self.__google_username_v4}:{self.__google_password_v4}@domains.google.com/nic/update?hostname={self.__domain_name_v4}&myip={this_ipv4}"
-            ipv4_post_url.replace("\n", "")
-            self.__log(f"this_ipv6:{ipv6_post_url}")
-            self.__log(f"this_ipv4:{ipv4_post_url}")
-            if(this_ipv4!=""):resultV4 = requests.post(ipv6_post_url,timeout=5)
-            self.__log(f"resultV4:{resultV4}")
-            if(this_ipv6!=""):resultV6 = requests.post(ipv4_post_url,timeout=5)
-            self.__log(f"resultV6:{resultV6}")
+            this_ipv6 = self.__get_current_ipv6()
+
+            # Update IPv4
+            if this_ipv4:
+                ipv4_url = f"https://{self.__google_username_v4}:{self.__google_password_v4}@domains.google.com/nic/update?hostname={self.__domain_name_v4}&myip={this_ipv4}"
+                ipv4_curl_command = f"curl '{ipv4_url}'"
+                ipv4_result = subprocess.run(ipv4_curl_command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                self.__log(f"IPv4 CURL Output: {ipv4_result.stdout}")
+                if ipv4_result.stderr:
+                    self.__log(f"IPv4 CURL Error: {ipv4_result.stderr}")
+
+            # Update IPv6
+            if this_ipv6:
+                ipv6_url = f"https://{self.__google_username_v6}:{self.__google_password_v6}@domains.google.com/nic/update?hostname={self.__domain_name_v6}&myip={this_ipv6}"
+                ipv6_curl_command = f"curl '{ipv6_url}'"
+                ipv6_result = subprocess.run(ipv6_curl_command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+                self.__log(f"IPv6 CURL Output: {ipv6_result.stdout}")
+                if ipv6_result.stderr:
+                    self.__log(f"IPv6 CURL Error: {ipv6_result.stderr}")
+
+        except subprocess.CalledProcessError as e:
+            # Log the error for the failed curl command
+            self.__log(f"CURL Command Failed: {e.stderr}")
         except Exception as e:
-            self.__log(f"[Error]_post_ip_address:{str(e)}")
+            # Log any other unexpected errors
+            self.__log(f"Unexpected Error: {str(e)}")
 
     def __get_current_ipv6(self):
         try:
