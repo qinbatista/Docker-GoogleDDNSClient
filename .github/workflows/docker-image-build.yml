@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Build the Docker image
-        run: docker build -t qinbatista/googleddnsclient .
+        run: docker build -t qinbatista/googleddnsclienttimo .
               --build-arg GOOGLE_USERNAME_V6="${{ secrets.GOOGLE_USERNAME_V6 }}"
               --build-arg GOOGLE_PASSWORD_V6="${{ secrets.GOOGLE_PASSWORD_V6 }}"
               --build-arg DOMAIN_NAME_V6="${{ secrets.DOMAIN_NAME_V6 }}"
@@ -52,4 +52,4 @@ jobs:
             password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push docker
-        run: docker push qinbatista/googleddnsclient
+        run: docker push qinbatista/googleddnsclienttimo
