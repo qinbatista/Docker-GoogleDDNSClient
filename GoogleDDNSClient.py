@@ -100,7 +100,6 @@ class GoogleDDNSClient:
             self.__log(f"[get_host_ip] Request Exception: {err}")
         return ""
 
-
     def __log(self, result):
         with open(self.__file_path, "a+") as f:
             f.write(result+"\n")
